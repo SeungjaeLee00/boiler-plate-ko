@@ -1,4 +1,7 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');  // 다운 받은 bcrypt 불러오기
+const saltRounds = 10;  // salt 글자 수
+
 
 const userSchema = mongoose.Schema({
     name: {
@@ -7,7 +10,7 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        trim: true,  // 빈칸을 없애주는 역할
+        trim: true,  
         unique: 1
     },
     password: {
@@ -18,20 +21,41 @@ const userSchema = mongoose.Schema({
         type: String,
         maxlength: 50
     },
-    role: {  // user가 관리자가 될 수도 있고 일반유저가 될 수도 있기 때문
-        type: Number,  // 예를 들어, number가 1이면 관리자, 0이면 일반유저
+    role: { 
+        type: Number, 
         default: 0
     },
     image: String,
     token:{
         type: Number
     }, 
-    tokenExp: {  // token이 유효하는 기간
+    tokenExp: {  
         type: Number
     }
 })
 
-const User = mongoose.model('User', userSchema)  // 모델이 스키마 감싸주기
+userSchema.pre('save', function(next) {  // userModel에 user정보를 저장하기 전에 처리됨
+    var user = this;
+    
+    if(user.isModified('password')){  // password가 변환될 때만 암호화
+        // 비밀번호를 암호화 시키기
+        bcrypt.genSalt(saltRounds, function(err, salt){  // salt 만들기
+            if(err) return next(err)
 
-module.exports = { User }  // 다른 곳에서도 사용할 수 있게 export
+            bcrypt.hash(user.password, salt, function(err, hash) {  
+                if(err) return next(err)
+                user.password = hash  // 암호화 키 만드는 데 성공했으면, 원래 비밀번호랑 hash 바꾸고
+                next()  // index.js로 돌아가기
+            })
+        })
+    } else {  // 비밀번호 말고 다른 걸 바꿀 경우
+        next()
+    }
+})  
+
+
+
+const User = mongoose.model('User', userSchema)  
+
+module.exports = { User }  
 

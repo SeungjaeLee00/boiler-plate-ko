@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
 app.post('/register', async (req, res) => {
   const user = new User(req.body)
 
+  // save 전에 비밀번호 암호화
+
   const result = await user.save().then(()=>{
     res.status(200).json({
       success: true
