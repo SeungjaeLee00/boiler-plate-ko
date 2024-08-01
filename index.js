@@ -2,13 +2,15 @@ const express = require('express')
 const app = express()
 const port = 4000
 const bodyParser = require('body-parser');  
+
+const config = require('./config/key');
 const { User } = require('./models/User');  
 
 app.use(bodyParser.urlencoded({extended: true})); 
 app.use(bodyParser.json());
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://leesengjie:abcd1234@bolier-plate.unathks.mongodb.net/?retryWrites=true&w=majority&appName=bolier-plate', {})
+mongoose.connect(config.mongoURI, {})
 .then(() => console.log('MongoDB connected..'))
 .catch(err => console.log(err))
 
