@@ -2,14 +2,15 @@ const express = require("express");
 const app = express();
 const port = 4000;
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser"); 
-const config = require("./config/key");
+const cookieParser = require("cookie-parser");
 
+const config = require("./config/key");
 const { User } = require("./models/User");
+const { auth } = require("./middleware/auth");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser()); 
+app.use(cookieParser());
 
 const mongoose = require("mongoose");
 mongoose
@@ -17,11 +18,11 @@ mongoose
   .then(() => console.log("MongoDB connected.."))
   .catch((err) => console.log(err));
 
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("안녕하세요. jaejae입니다.");
 });
 
-app.post("/register", async (req, res) => {
+app.post("/api/users/register", async (req, res) => {
   const user = new User(req.body);
   const result = await user
     .save()
@@ -35,7 +36,7 @@ app.post("/register", async (req, res) => {
     });
 });
 
-app.post("/login", async (req, res) => {
+app.post("/api/users/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -60,6 +61,18 @@ app.post("/login", async (req, res) => {
   } catch (err) {
     return res.status(400).send(err);
   }
+});
+
+app.get("/api/users/auth", auth, (req, res) => {
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? true : false,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    role: req.user.role,
+    image: req.user.image,
+  });
 });
 
 app.listen(port, () => {
