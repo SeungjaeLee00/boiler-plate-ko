@@ -3,7 +3,7 @@ const { User } = require("../models/User");
 const auth = async (req, res, next) => {
   try {
     // Cookie에서 Token 가져옴
-    const token = req.cookie.user_auth;
+    const token = req.cookies.user_auth;
 
     if (!token) {
       return res.json({ isAuth: false, error: true });

@@ -77,7 +77,7 @@ app.get("/api/users/auth", auth, (req, res) => {
 
 app.get("/api/users/logout", auth, async (req, res) => {
   try {
-    await User.findOneAndUpdate({ id: req.user._id }, { token: "" });
+    await User.findOneAndUpdate({ _id: req.user._id }, { token: " " });
     return res.status(200).send({
       success: true,
     });
