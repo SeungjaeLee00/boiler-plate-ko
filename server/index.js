@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = 4000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -21,6 +20,10 @@ mongoose
 // app.get("/test", (req, res) => {
 //   res.send("안녕하세요. jaejae입니다.");
 // });
+
+app.get("/hello", (req, res) => {
+  res.send('Hello world');
+})
 
 app.post("/api/users/register", async (req, res) => {
   const user = new User(req.body);
@@ -86,6 +89,7 @@ app.get("/api/users/logout", auth, async (req, res) => {
   }
 });
 
+const port = 4000;
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
