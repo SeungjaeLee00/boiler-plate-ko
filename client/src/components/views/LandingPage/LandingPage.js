@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
   const navigate = useNavigate();
-  const toLogin = () => {
-    navigate("/login");
+  const toLogout = () => {
+    axios.get("/users/logout").then((response) => {
+      if (response.data.success) {
+        navigate("/login");
+      } else {
+        alert("로그아웃 실패");
+      }
+    });
   };
 
-  // useEffect(() => {
-  //   axios.get("/users/login").then((response) => console.log(response.data));
-  // }, []);
   return (
     <div
       style={{
@@ -23,7 +26,7 @@ function LandingPage() {
       }}
     >
       <h2>시작 페이지</h2>
-      <button onClick={toLogin}>로그인</button>
+      <button onClick={toLogout}>로그아웃</button>
     </div>
   );
 }
