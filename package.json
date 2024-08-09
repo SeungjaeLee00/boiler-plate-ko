@@ -12,6 +12,7 @@
   "author": "jaejae",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.3",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",

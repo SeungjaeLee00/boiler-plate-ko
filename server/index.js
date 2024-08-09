@@ -22,10 +22,10 @@ mongoose
 // });
 
 app.get("/hello", (req, res) => {
-  res.send('Hello world');
-})
+  res.send("Hello world");
+});
 
-app.post("/api/users/register", async (req, res) => {
+app.post("/users/register", async (req, res) => {
   const user = new User(req.body);
   const result = await user
     .save()
@@ -39,7 +39,7 @@ app.post("/api/users/register", async (req, res) => {
     });
 });
 
-app.post("/api/users/login", async (req, res) => {
+app.post("/users/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -66,7 +66,7 @@ app.post("/api/users/login", async (req, res) => {
   }
 });
 
-app.get("/api/users/auth", auth, (req, res) => {
+app.get("/users/auth", auth, (req, res) => {
   res.status(200).json({
     _id: req.user._id,
     isAdmin: req.user.role === 0 ? true : false,
@@ -78,7 +78,7 @@ app.get("/api/users/auth", auth, (req, res) => {
   });
 });
 
-app.get("/api/users/logout", auth, async (req, res) => {
+app.get("/users/logout", auth, async (req, res) => {
   try {
     await User.findOneAndUpdate({ _id: req.user._id }, { token: " " });
     return res.status(200).send({
