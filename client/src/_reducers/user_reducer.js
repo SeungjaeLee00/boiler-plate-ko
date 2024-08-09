@@ -1,4 +1,4 @@
-import { LOGIN_USER } from "../_actions/types";
+import { LOGIN_USER, REGISTER_USER } from "../_actions/types";
 
 // 이전 state (비어있음), action => 다음 state 리턴
 export default function (state = {}, action) {
@@ -6,6 +6,10 @@ export default function (state = {}, action) {
     case LOGIN_USER:
       // ...: spreadOpreraion 위에 파라미터(state = {}부분) 그대로 가져옴
       return { ...state, loginSuccess: action.payload };
+
+    case REGISTER_USER:
+      return { ...state, registerSuccess: action.payload };
+
 
     default:
       return state;
