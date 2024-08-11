@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER } from "../_actions/types";
+import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/types";
 
 // 이전 state (비어있음), action => 다음 state 리턴
 export default function (state = {}, action) {
@@ -10,6 +10,8 @@ export default function (state = {}, action) {
     case REGISTER_USER:
       return { ...state, registerSuccess: action.payload };
 
+    case AUTH_USER:
+      return { ...state, userData: action.payload };
 
     default:
       return state;
