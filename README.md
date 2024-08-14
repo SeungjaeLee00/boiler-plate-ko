@@ -5,17 +5,17 @@
 ![login](https://blog.kakaocdn.net/dn/pT6Yr/btsI0RFzGEb/iaxRBC2BOlbrSfMcSxggSK/img.gif)
 
 <br />
-3. 로그아웃 페이지
+2. 로그아웃 페이지
 ![logout](https://blog.kakaocdn.net/dn/XfcFS/btsI1feWCQg/aBGIkO9Fkua1aKKAhThcl0/img.gif)
 
 
 <br />
-4. 회원가입 페이지
+3. 회원가입 페이지
 ![register](https://blog.kakaocdn.net/dn/L7TsM/btsI02NDQ4w/r1yejXo8AL8RAiPNGYz0g1/img.gif)
 
 
 <br />
-5. AuthenticationCheck 적용
+4. AuthenticationCheck 적용
 
 - 로그인 한 상태에서 회원 가입 불가
 ![auth_register](https://blog.kakaocdn.net/dn/b5bOH3/btsIZYZ4mMC/9mwD0s29MNwE7KIn9iOKw1/img.gif)
